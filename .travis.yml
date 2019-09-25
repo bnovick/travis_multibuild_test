@@ -20,14 +20,14 @@ jobs:
 # Using the on condition config, we can make sure that a $LAMBDA variable matches the lambda name in order to deploy      
 deploy:
 - provider: script
-  script: bash test1/deploy.sh
+  script: bash lambda1/deploy.sh
   on:
     branch: master
-    condition: $LAMBDA = test1
+    condition: $LAMBDA = lambda1
 - provider: script
-  script: bash test2/deploy.sh
+  script: bash lambda2/deploy.sh
   on:
     branch: master
-    condition: $LAMBDA = test2
+    condition: $LAMBDA = lambda2
 
 
