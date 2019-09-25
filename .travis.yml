@@ -1,10 +1,6 @@
 language: python
 nodejs: lts/*
 python: 3.7
-# Attempt to cache npm and pip packates
-cache:
-- npm
-- pip
 env:
   global:
   - AWS_DEFAULT_REGION=us-west-2
