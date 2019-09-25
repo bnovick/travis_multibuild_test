@@ -1,0 +1,26 @@
+language: python
+nodejs: lts/*
+python: 3.7
+# Attempt to cache npm and pip packates
+cache:
+- npm
+- pip
+env:
+  global:
+  - AWS_DEFAULT_REGION=us-west-2
+before_install:
+- export PATH=$PATH:$HOME/.local/bin
+install:
+- pip install pipenv
+- pipenv install --dev
+- npm install
+- npm install -g serverless
+- pip install awscli --upgrade
+- aws --version
+script:
+- pipenv run pytest
+deploy:
+- provider: script
+  script: bash deploy/deploy.sh
+  on:
+    branch: master
