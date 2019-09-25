@@ -1,17 +1,33 @@
 language: generic
-nodejs: lts/*
-python: 3.7
 env:
   global:
   - AWS_DEFAULT_REGION=us-west-2
 before_install:
 - export PATH=$PATH:$HOME/.local/bin
-# install:
-# - pip install pipenv
-# - pipenv install --dev
+# This will allow us to specify the programming language at runtime, via the global env LAMBDA_LANGUAGE_VERSION
+jobs:
+  include:
+    - language: python
+      python: 3.7
+      script:
+      - python --version
+      if: env(LAMBDA_LANGUAGE_VERSION)=python_3_7
+    - language: python
+      python: 3.6
+      script:
+      - python --version
+      if: env(LAMBDA_LANGUAGE_VERSION)=python_3_6
+# Using the on condition config, we can make sure that a $LAMBDA variable matches the lambda name in order to deploy      
 deploy:
 - provider: script
-  script: bash deploy/deploy.sh
+  script: bash test1/deploy.sh
   on:
     branch: master
     condition: $LAMBDA = test1
+- provider: script
+  script: bash test2/deploy.sh
+  on:
+    branch: master
+    condition: $LAMBDA = test2
+
+
