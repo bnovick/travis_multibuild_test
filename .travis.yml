@@ -1,4 +1,4 @@
-language: python
+language: generic
 nodejs: lts/*
 python: 3.7
 env:
