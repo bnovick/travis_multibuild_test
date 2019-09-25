@@ -10,17 +10,12 @@ env:
   - AWS_DEFAULT_REGION=us-west-2
 before_install:
 - export PATH=$PATH:$HOME/.local/bin
-install:
-- pip install pipenv
-- pipenv install --dev
-- npm install
-- npm install -g serverless
-- pip install awscli --upgrade
-- aws --version
-script:
-- pipenv run pytest
+# install:
+# - pip install pipenv
+# - pipenv install --dev
 deploy:
 - provider: script
   script: bash deploy/deploy.sh
   on:
     branch: master
+    condition: $LAMBDA = test1
